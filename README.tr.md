@@ -14,6 +14,14 @@ pnpm add @lentystyle/ssr
 
 ## Hızlı Kullanım
 
+En hızlı yol — siteni build et, ardından paketle gelen CLI'ı çıktı üzerinde çalıştır:
+
+```bash
+npx lenty-ssr
+```
+
+Config olmadan runner `./dist` dizinini okur, sayfa başına `.luis` kaynaklarını otomatik keşfeder ve SSR ile zenginleştirilmiş sayfaları `./dist-ssr` içine yazar. Önizleme için `--dry-run`, çıktı kontrolü için `--verify` kullanın.
+
 Proje seviyesindeki SSR ayarlarını `luis.config.mjs` dosyasında tutun:
 
 ```js
@@ -28,12 +36,14 @@ export default defineLuisConfig({
 })
 ```
 
-Runtime entegrasyonunu oluşturun:
+Request-time SSR için route'ları config içinde `.luis` kaynaklarına eşleyin ve üç satırla render edin:
 
 ```ts
-import { createLentySsrIntegration } from '@lentystyle/ssr'
+import { createLentySsrProdFromProjectConfig } from '@lentystyle/ssr'
 
-const integration = createLentySsrIntegration({ mode: 'ssr' })
+const ssr = await createLentySsrProdFromProjectConfig()
+const render = await ssr.renderRoute(req.path, html)
+res.send(render.result.html)
 ```
 
 Tipik istek akışı:
@@ -44,6 +54,22 @@ Tipik istek akışı:
 4. hybrid ile derlenir
 5. CSS ve payload HTML'e enjekte edilir
 6. `result.html` döndürülür
+
+## Hatalar
+
+Her başarısızlık, kodlu bir `LentySsrError` ile reject olur:
+
+```ts
+import { isLentySsrError } from '@lentystyle/ssr'
+
+try {
+  await integration.renderRequest(input)
+} catch (error) {
+  if (isLentySsrError(error)) {
+    console.log(error.code) // 'guard-rejected' | 'compile-failed' | 'adapter-callback-failed' | 'project-config-invalid'
+  }
+}
+```
 
 ## Linkler
 

@@ -1,9 +1,23 @@
 {
   "name": "@lentystyle/ssr",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "LentyStyle SSR orchestration package",
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "LUIS LICENSE",
+  "homepage": "https://lentystyle.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lentystyle/ssr.git"
+  },
+  "keywords": [
+    "lentystyle",
+    "luis",
+    "css",
+    "ssr",
+    "server-side-rendering",
+    "runtime",
+    "html"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -11,6 +25,9 @@
   "main": "./dist/index.min.cjs",
   "module": "./dist/index.min.js",
   "types": "./dist/types/index.d.ts",
+  "bin": {
+    "lenty-ssr": "./dist/runner/cli.min.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -23,20 +40,20 @@
   "files": [
     "dist",
     "README.md",
-    "README.tr.md",
+    "README.TR.md",
     "LICENSE.md",
-    "LICENSE.tr.md",
+    "LICENSE.TR.md",
     "CHANGELOG.md",
-    "CHANGELOG.tr.md",
+    "CHANGELOG.TR.md",
     "CONTRIBUTING.md",
-    "CONTRIBUTING.tr.md",
+    "CONTRIBUTING.TR.md",
     "CODE_OF_CONDUCT.md",
-    "CODE_OF_CONDUCT.tr.md",
+    "CODE_OF_CONDUCT.TR.md",
     "SECURITY.md",
-    "SECURITY.tr.md"
+    "SECURITY.TR.md"
   ],
   "dependencies": {
-    "@lentystyle/core": "0.1.0",
-    "@lentystyle/hybrid": "0.1.0"
+    "@lentystyle/core": "0.1.1",
+    "@lentystyle/hybrid": "0.1.2"
   }
 }
